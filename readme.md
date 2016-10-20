@@ -1,4 +1,4 @@
-# pan-zoom  [![unstable](http://badges.github.io/stability-badges/dist/unstable.svg)](http://github.com/badges/stability-badges) ![tiny](https://img.shields.io/badge/size-4.8kb-brightgreen.svg)
+# pan-zoom  [![unstable](http://badges.github.io/stability-badges/dist/unstable.svg)](http://github.com/badges/stability-badges)![tiny](https://img.shields.io/badge/size-4.8kb-brightgreen.svg)
 
 Panning and zooming events for any target. May come handy for webgl, canvas, svg, images or pure html manipulations. Handles mobile pinch-zoom, drag and scroll interactions, provides inertial movement.
 
@@ -9,20 +9,19 @@ See [demo](https://dfcreative.github.io/plot-grid).
 ```js
 const panzoom = require('pan-zoom');
 
-panzoom(
-	target,
+panzoom(target,
 	function onPan (dx, dy, cx, cy) => {
 		//dx and dy are deltas from the last call
 	},
 	function onZoom (dx, dy, cx, cy) => {
-		//cx and cy are pointer coordinates relative to the target
+		//cx and cy are current pointer coordinates relative to the target
 	}
 );
 ```
 
 ## Credits
 
-This package puts together high-quality tiny components, for what acknowledgment to their authors:
+This package puts together high-quality tiny components, so acknowledgment to their authors:
 
 * [impetus](http://npmjs.org/package/impetus) by **[Chris Bateman @chrisbateman](https://github.com/chrisbateman)** handles inertial drag.
 * [wheel](https://github.com/anvaka/wheel) by **[Andrei Kashcha @anvaka](https://github.com/anvaka)** covers cross-browser wheel event.
