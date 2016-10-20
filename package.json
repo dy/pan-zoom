@@ -1,0 +1,36 @@
+{
+  "name": "pan-zoom",
+  "version": "1.0.0",
+  "description": "Pan and zoom events for any element",
+  "main": "index.js",
+  "scripts": {
+    "test": "budo test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dfcreative/pan-zoom.git"
+  },
+  "keywords": [
+    "pan",
+    "zoom",
+    "pinch",
+    "touch",
+    "canvas",
+    "webgl"
+  ],
+  "author": "ΔY <dfcreative@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dfcreative/pan-zoom/issues"
+  },
+  "homepage": "https://github.com/dfcreative/pan-zoom#readme",
+  "dependencies": {
+    "impetus": "^0.8.3",
+    "touch-pinch": "^1.0.0",
+    "touch-position": "^2.0.0",
+    "wheel": "^0.0.4"
+  },
+  "devDependencies": {
+    "eslint": "^3.8.1"
+  }
+}
