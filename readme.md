@@ -1,4 +1,4 @@
-# pan-zoom ![tiny](https://img.shields.io/badge/gzipped-4.8kb-brightgreen.svg)[![unstable](http://badges.github.io/stability-badges/dist/unstable.svg)](http://github.com/badges/stability-badges)
+# pan-zoom ![tiny](https://img.shields.io/badge/gzipped-4.8kb-brightgreen.svg) [![unstable](http://badges.github.io/stability-badges/dist/unstable.svg)](http://github.com/badges/stability-badges)
 
 Panning and zooming events for any target. May come handy for webgl, canvas, svg, images or pure html manipulations. Handles mobile pinch-zoom, drag and scroll interactions, provides inertial movement.
 
