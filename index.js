@@ -7,7 +7,7 @@
 
 
 const Impetus = require('impetus');
-const wheel = require('wheel');
+const wheel = require('mouse-wheel');
 const touchPinch = require('touch-pinch');
 const position = require('touch-position');
 
@@ -42,9 +42,9 @@ function panzoom (target, pan, zoom) {
 
 	//enable zooming
 	if (zoom instanceof Function) {
-		wheel.addWheelListener(target, (e) => {
+		wheel(target, (dx, dy, dz, e) => {
 			e.preventDefault();
-			zoom(e.wheelDeltaX, e.wheelDeltaY, pos[0], pos[1]);
+			zoom(dx, dy, pos[0], pos[1]);
 		});
 
 		//mobile pinch zoom

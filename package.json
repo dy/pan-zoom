@@ -26,9 +26,9 @@
   "homepage": "https://github.com/dfcreative/pan-zoom#readme",
   "dependencies": {
     "impetus": "^0.8.3",
+    "mouse-wheel": "^1.2.0",
     "touch-pinch": "^1.0.0",
-    "touch-position": "^2.0.0",
-    "wheel": "^0.0.4"
+    "touch-position": "^2.0.0"
   },
   "devDependencies": {
     "eslint": "^3.8.1"
