@@ -77,7 +77,7 @@ function panzoom (target, pan, zoom) {
 
 			lastDist = dist;
 
-			zoom(-delta[0]*mult, -delta[1]*mult, initialCoords[0], initialCoords[1]);
+			zoom(delta[0]*mult, delta[1]*mult, initialCoords[0], initialCoords[1]);
 		});
 	}
 }
