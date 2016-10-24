@@ -24,7 +24,6 @@ panzoom(target,
 This package puts together high-quality tiny components, so acknowledgment to their authors:
 
 * [impetus](http://npmjs.org/package/impetus) by **[Chris Bateman @chrisbateman](https://github.com/chrisbateman)** handles inertial drag.
-* <del>[wheel](https://github.com/anvaka/wheel) by **[Andrei Kashcha @anvaka](https://github.com/anvaka)** covers cross-browser wheel event</del> The package does not meet description, unfortunately.
 * [mouse-wheel](https://github.com/mikolalysenko/mouse-wheel) by **[Mikola Lysenko @mikolalysenko](https://github.com/mikolalysenko/mouse-wheel)** covers cross-browser wheel event.</del>
 * [touch-pinch](https://www.npmjs.com/package/touch-pinch) by **[Matt DesLauriers @mattdesl](https://github.com/mattdesl)** handles mobile pinch gestures.
 * [touch-position](https://www.npmjs.com/package/touch-position) by **[Matt DesLauriers @mattdesl](https://github.com/mattdesl)** tracks mouse and touch coordinates.
