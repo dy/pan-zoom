@@ -62,12 +62,15 @@ function panzoom (target, cb) {
 	let initialCoords;
 
 	pinch.on('start', (curr) => {
+		impetus && impetus.pause()
+
 		let [f1, f2] = pinch.fingers;
 
 		initialCoords = [f2.position[0]*.5 + f1.position[0]*.5, f2.position[1]*.5 + f1.position[1]*.5];
 	});
 	pinch.on('end', () => {
 		initialCoords = null;
+		impetus && impetus.resume()
 	});
 	pinch.on('change', (curr, prev) => {
 		if (!pinch.pinching || !initialCoords) return;
