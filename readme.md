@@ -10,23 +10,22 @@ See [demo](https://dfcreative.github.io/plot-grid).
 const panzoom = require('pan-zoom');
 
 panzoom(target, e => {
-		//e contains all the params related to the interaction
+  //e contains all the params related to the interaction
 
-		//pan deltas
-		e.dx;
-		e.dy;
+  //pan deltas
+  e.dx;
+  e.dy;
 
-		//zoom delta
-		e.dz;
+  //zoom delta
+  e.dz;
 
-		//coordinates of the center
-		e.x;
-		e.y;
+  //coordinates of the center
+  e.x;
+  e.y;
 
-		//type of interaction: mouse, touch, keyboard
-		e.type;
-	}
-);
+  //type of interaction: mouse, touch, keyboard
+  e.type;
+});
 ```
 
 ## Credits
