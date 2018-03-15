@@ -11,21 +11,24 @@ const panzoom = require('pan-zoom');
 
 // define interaction listener on a target
 panzoom(document.body, e => {
-  //e contains all the params related to the interaction
+  // e contains all the params related to the interaction
 
-  //pan deltas
+  // pan deltas
   e.dx;
   e.dy;
 
-  //zoom delta
+  // zoom delta
   e.dz;
 
-  //coordinates of the center
+  // coordinates of the center
   e.x;
   e.y;
 
-  //type of interaction: mouse, touch, keyboard
+  // type of interaction: mouse, touch, keyboard
   e.type;
+
+  // target event is applied to
+  e.target;
 });
 ```
 

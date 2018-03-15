@@ -35,6 +35,7 @@ function panzoom (target, cb) {
 			if (impetusStoppedAt) return
 
 			let e = {
+				target,
 				type: 'mouse',
 				dx: x-lastX, dy: y-lastY, dz: 0,
 				x: pos[0], y: pos[1]
@@ -53,6 +54,7 @@ function panzoom (target, cb) {
 	wheel(target, (dx, dy, dz, e) => {
 		e.preventDefault();
 		cb({
+			target,
 			type: 'mouse',
 			dx: 0, dy: 0, dz: dy,
 			x: pos[0], y: pos[1]
@@ -84,6 +86,7 @@ function panzoom (target, cb) {
 		if (!pinch.pinching || !initialCoords) return;
 
 		cb({
+			target
 			type: 'touch',
 			dx: 0, dy: 0, dz: -(curr - prev)*mult,
 			x: initialCoords[0], y: initialCoords[1]
