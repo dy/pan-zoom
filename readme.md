@@ -29,6 +29,10 @@ panzoom(document.body, e => {
 
   // target event is applied to
   e.target;
+
+  // initial coordinates of interaction
+  e.x0;
+  e.y0;
 });
 ```
 
