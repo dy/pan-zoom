@@ -86,7 +86,7 @@ function panzoom (target, cb) {
 		if (!pinch.pinching || !initialCoords) return;
 
 		cb({
-			target
+			target,
 			type: 'touch',
 			dx: 0, dy: 0, dz: -(curr - prev)*mult,
 			x: initialCoords[0], y: initialCoords[1]
