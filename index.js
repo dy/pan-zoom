@@ -16,8 +16,10 @@ module.exports = panzoom;
 
 
 function panzoom (target, cb) {
-	if (!target || !(cb instanceof Function)) return false;
-
+	if (target instanceof Function) {
+		cb = target
+		target = document.body || document.documentElement
+	}
 
 	//enable panning
 	let pos = position({
@@ -30,6 +32,8 @@ function panzoom (target, cb) {
 	impetus = new Impetus({
 		source: target,
 		update: (x, y) => {
+			if (impetusStoppedAt) return
+
 			let e = {
 				type: 'mouse',
 				dx: x-lastX, dy: y-lastY, dz: 0,
@@ -38,7 +42,6 @@ function panzoom (target, cb) {
 
 			lastX = x;
 			lastY = y;
-
 			cb(e);
 		},
 		multiplier: 1,
@@ -60,16 +63,21 @@ function panzoom (target, cb) {
 	let pinch = touchPinch(target);
 	let mult = 2;
 	let initialCoords;
+	let impetusStoppedAt;
 
 	pinch.on('start', (curr) => {
-		impetus && impetus.pause()
-
 		let [f1, f2] = pinch.fingers;
 
 		initialCoords = [f2.position[0]*.5 + f1.position[0]*.5, f2.position[1]*.5 + f1.position[1]*.5];
+
+		impetus && impetus.pause()
 	});
 	pinch.on('end', () => {
+		if (!initialCoords) return;
+
 		initialCoords = null;
+		impetusStoppedAt = null;
+
 		impetus && impetus.resume()
 	});
 	pinch.on('change', (curr, prev) => {

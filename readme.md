@@ -9,7 +9,8 @@ See [demo](https://dfcreative.github.io/plot-grid).
 ```js
 const panzoom = require('pan-zoom');
 
-panzoom(target, e => {
+// define interaction listener on a target
+panzoom(document.body, e => {
 		//e contains all the params related to the interaction
 
 		//pan deltas
