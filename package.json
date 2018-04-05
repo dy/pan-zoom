@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dfcreative/pan-zoom.git"
+    "url": "git+https://github.com/dy/pan-zoom.git"
   },
   "keywords": [
     "pan",
@@ -21,9 +21,9 @@
   "author": "ΔY <dfcreative@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dfcreative/pan-zoom/issues"
+    "url": "https://github.com/dy/pan-zoom/issues"
   },
-  "homepage": "https://github.com/dfcreative/pan-zoom#readme",
+  "homepage": "https://github.com/dy/pan-zoom#readme",
   "dependencies": {
     "impetus": "^0.8.3",
     "mouse-wheel": "^1.2.0",

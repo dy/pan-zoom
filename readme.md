@@ -2,7 +2,7 @@
 
 Panning and zooming events for any target. May come handy for webgl, canvas, svg, images or pure html manipulations. Handles mobile pinch-zoom, drag and scroll interactions, provides inertial movement.
 
-See [demo](https://dfcreative.github.io/plot-grid).
+See [demo](https://dy.github.io/plot-grid).
 
 [![npm install pan-zoom](https://nodei.co/npm/pan-zoom.png?mini=true)](https://npmjs.org/package/pan-zoom/)
 
