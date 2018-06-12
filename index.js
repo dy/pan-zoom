@@ -11,6 +11,7 @@ var wheel = require('mouse-wheel')
 var touchPinch = require('touch-pinch')
 var position = require('touch-position')
 var raf = require('raf')
+var hasPassive = require('has-passive-events')
 
 
 module.exports = panZoom
@@ -31,7 +32,7 @@ function panZoom (target, cb) {
 
 	var initX = 0, initY = 0, init = true
 	target.addEventListener('mousedown', function (e) { init = true })
-	target.addEventListener('touchstart', function (e) { init = true })
+	target.addEventListener('touchstart', function (e) { init = true }, hasPassive ? { passive: true } : false)
 
 	var lastY = 0, lastX = 0
 	impetus = new Impetus({
