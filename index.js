@@ -6,53 +6,55 @@
 'use strict'
 
 
-const Impetus = require('impetus')
-const wheel = require('mouse-wheel')
-const touchPinch = require('touch-pinch')
-const position = require('touch-position')
+var Impetus = require('impetus')
+var wheel = require('mouse-wheel')
+var touchPinch = require('touch-pinch')
+var position = require('touch-position')
+var raf = require('raf')
 
 
-module.exports = panzoom
+module.exports = panZoom
 
 
-function panzoom (target, cb) {
+function panZoom (target, cb) {
 	if (target instanceof Function) {
 		cb = target
 		target = document.documentElement || document.body
 	}
 
 	//enable panning
-	let pos = position({
+	var pos = position({
 		element: target
 	})
 
-	let impetus
+	var impetus
 
-	let initX = 0, initY = 0, init = true
-	target.addEventListener('mousedown', e => init = true)
-	target.addEventListener('touchstart', e => init = true)
+	var initX = 0, initY = 0, init = true
+	target.addEventListener('mousedown', function (e) { init = true })
+	target.addEventListener('touchstart', function (e) { init = true })
 
-	let lastY = 0, lastX = 0
+	var lastY = 0, lastX = 0
 	impetus = new Impetus({
 		source: target,
-		update: (x, y) => {
+		update: function (x, y) {
 			if (init) {
 				init = false
 				initX = pos[0]
 				initY = pos[1]
 			}
 
-			let e = {
+			var e = {
 				target,
 				type: 'mouse',
-				dx: x-lastX, dy: y-lastY, dz: 0,
+				dx: x - lastX, dy: y - lastY, dz: 0,
 				x: pos[0], y: pos[1],
 				x0: initX, y0: initY
 			}
 
 			lastX = x
 			lastY = y
-			cb(e)
+
+			schedule(e)
 		},
 		multiplier: 1,
 		friction: .75
@@ -60,9 +62,9 @@ function panzoom (target, cb) {
 
 
 	//enable zooming
-	wheel(target, (dx, dy, dz, e) => {
+	wheel(target, function (dx, dy, dz, e) {
 		e.preventDefault()
-		cb({
+		schedule({
 			target,
 			type: 'mouse',
 			dx: 0, dy: 0, dz: dy,
@@ -72,33 +74,68 @@ function panzoom (target, cb) {
 	})
 
 	//mobile pinch zoom
-	let pinch = touchPinch(target)
-	let mult = 2
-	let initialCoords
+	var pinch = touchPinch(target)
+	var mult = 2
+	var initialCoords
 
-	pinch.on('start', (curr) => {
-		let [f1, f2] = pinch.fingers
+	pinch.on('start', function (curr) {
+		var [f1, f2] = pinch.fingers
 
-		initialCoords = [f2.position[0]*.5 + f1.position[0]*.5, f2.position[1]*.5 + f1.position[1]*.5]
+		initialCoords = [
+			f2.position[0] * .5 + f1.position[0] * .5,
+			f2.position[1] * .5 + f1.position[1] * .5
+		]
 
 		impetus && impetus.pause()
 	})
-	pinch.on('end', () => {
+	pinch.on('end', function () {
 		if (!initialCoords) return
 
 		initialCoords = null
 
 		impetus && impetus.resume()
 	})
-	pinch.on('change', (curr, prev) => {
+	pinch.on('change', function (curr, prev) {
 		if (!pinch.pinching || !initialCoords) return
 
-		cb({
+		schedule({
 			target,
 			type: 'touch',
-			dx: 0, dy: 0, dz: -(curr - prev)*mult,
+			dx: 0, dy: 0, dz: - (curr - prev) * mult,
 			x: initialCoords[0], y: initialCoords[1],
 			x0: initialCoords[0], y0: initialCoords[0]
 		})
 	})
+
+
+	// schedule function to current or next frame
+	var planned, frameId
+	function schedule (ev) {
+		if (frameId) {
+			if (!planned) planned = ev
+			else {
+				planned.dx += ev.dx
+				planned.dy += ev.dy
+				planned.dz += ev.dz
+
+				planned.x = ev.x
+				planned.y = ev.y
+			}
+
+			return
+		}
+
+		cb(ev)
+
+		frameId = raf(function () {
+			frameId = null
+			if (planned) {
+				var arg = planned
+				planned = null
+				schedule(arg)
+			}
+		})
+	}
 }
+
+

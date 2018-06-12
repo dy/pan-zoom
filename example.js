@@ -1,4 +1,4 @@
-'ues strict'
+'use strict'
 
 const panzoom = require('./')
 const regl = require('regl')({ extensions: ['OES_element_index_uint'] })

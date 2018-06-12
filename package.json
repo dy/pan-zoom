@@ -27,6 +27,7 @@
   "dependencies": {
     "impetus": "^0.8.3",
     "mouse-wheel": "^1.2.0",
+    "raf": "^3.4.0",
     "touch-pinch": "^1.0.0",
     "touch-position": "^2.0.0"
   },
