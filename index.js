@@ -23,6 +23,8 @@ function panZoom (target, cb) {
 		target = document.documentElement || document.body
 	}
 
+	if (typeof target === 'string') target = document.querySelector(target)
+
 	//enable panning
 	var pos = position({
 		element: target
