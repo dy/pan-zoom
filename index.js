@@ -47,7 +47,7 @@ function panZoom (target, cb) {
 			}
 
 			var e = {
-				target,
+				target: target,
 				type: 'mouse',
 				dx: x - lastX, dy: y - lastY, dz: 0,
 				x: pos[0], y: pos[1],
@@ -68,7 +68,7 @@ function panZoom (target, cb) {
 	wheel(target, function (dx, dy, dz, e) {
 		e.preventDefault()
 		schedule({
-			target,
+			target: target,
 			type: 'mouse',
 			dx: 0, dy: 0, dz: dy,
 			x: pos[0], y: pos[1],
@@ -82,7 +82,8 @@ function panZoom (target, cb) {
 	var initialCoords
 
 	pinch.on('start', function (curr) {
-		var [f1, f2] = pinch.fingers
+		var f1 = pinch.fingers[0];
+		var f2 = pinch.fingers[1];
 
 		initialCoords = [
 			f2.position[0] * .5 + f1.position[0] * .5,
@@ -102,7 +103,7 @@ function panZoom (target, cb) {
 		if (!pinch.pinching || !initialCoords) return
 
 		schedule({
-			target,
+			target: target,
 			type: 'touch',
 			dx: 0, dy: 0, dz: - (curr - prev) * mult,
 			x: initialCoords[0], y: initialCoords[1],
