@@ -114,7 +114,7 @@ function panZoom (target, cb) {
 	// schedule function to current or next frame
 	var planned, frameId
 	function schedule (ev) {
-		if (frameId) {
+		if (frameId != null) {
 			if (!planned) planned = ev
 			else {
 				planned.dx += ev.dx
@@ -128,9 +128,12 @@ function panZoom (target, cb) {
 			return
 		}
 
-		cb(ev)
+		// Firefox sometimes does not clear webgl current drawing buffer
+		// so we have to schedule callback to the next frame, not the current
+		// cb(ev)
 
 		frameId = raf(function () {
+			cb(ev)
 			frameId = null
 			if (planned) {
 				var arg = planned
@@ -140,5 +143,3 @@ function panZoom (target, cb) {
 		})
 	}
 }
-
-
