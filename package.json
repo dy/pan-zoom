@@ -1,6 +1,6 @@
 {
   "name": "pan-zoom",
-  "version": "3.2.2",
+  "version": "3.3.0",
   "description": "Pan and zoom events for any element",
   "main": "index.js",
   "scripts": {
