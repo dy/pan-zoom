@@ -9,7 +9,7 @@ See [demo](https://dy.github.io/plot-grid).
 ```js
 const panzoom = require('pan-zoom');
 
-panzoom(document.body, e => {
+let unpanzoom = panzoom(document.body, e => {
   // e contains all the params related to the interaction
 
   // pan deltas
@@ -33,6 +33,9 @@ panzoom(document.body, e => {
   e.x0;
   e.y0;
 });
+
+// call to remove panzoom handler from the target
+unpanzoom()
 ```
 
 See [`test.js`](https://github.com/dy/pan-zoom/blob/master/test.js) for basic use-case.

@@ -26,15 +26,16 @@ function panZoom (target, cb) {
 	if (typeof target === 'string') target = document.querySelector(target)
 
 	//enable panning
-	var pos = position({
+	var touch = position.emitter({
 		element: target
 	})
 
 	var impetus
 
 	var initX = 0, initY = 0, init = true
-	target.addEventListener('mousedown', function (e) { init = true })
-	target.addEventListener('touchstart', function (e) { init = true }, hasPassive ? { passive: true } : false)
+	var initFn = function (e) { init = true }
+	target.addEventListener('mousedown', initFn)
+	target.addEventListener('touchstart', initFn, hasPassive ? { passive: true } : false)
 
 	var lastY = 0, lastX = 0
 	impetus = new Impetus({
@@ -42,15 +43,15 @@ function panZoom (target, cb) {
 		update: function (x, y) {
 			if (init) {
 				init = false
-				initX = pos[0]
-				initY = pos[1]
+				initX = touch.position[0]
+				initY = touch.position[1]
 			}
 
 			var e = {
 				target: target,
 				type: 'mouse',
 				dx: x - lastX, dy: y - lastY, dz: 0,
-				x: pos[0], y: pos[1],
+				x: touch.position[0], y: touch.position[1],
 				x0: initX, y0: initY
 			}
 
@@ -65,14 +66,14 @@ function panZoom (target, cb) {
 
 
 	//enable zooming
-	wheel(target, function (dx, dy, dz, e) {
+	var wheelListener = wheel(target, function (dx, dy, dz, e) {
 		e.preventDefault()
 		schedule({
 			target: target,
 			type: 'mouse',
 			dx: 0, dy: 0, dz: dy,
-			x: pos[0], y: pos[1],
-			x0: pos[0], y0: pos[1]
+			x: touch.position[0], y: touch.position[1],
+			x0: touch.position[0], y0: touch.position[1]
 		})
 	})
 
@@ -142,5 +143,20 @@ function panZoom (target, cb) {
 				schedule(arg)
 			}
 		})
+	}
+
+	return function unpanzoom () {
+		touch.dispose()
+
+		target.removeEventListener('mousedown', initFn)
+		target.removeEventListener('touchstart', initFn)
+
+		impetus.destroy()
+
+		target.removeEventListener('wheel', wheelListener)
+
+		pinch.disable()
+
+		raf.cancel(frameId)
 	}
 }

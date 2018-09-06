@@ -10,7 +10,7 @@ let canvas = scatter.canvas
 
 scatter({ points: [0,0, 1,1, 2,2], colors: ['red', 'green', 'blue'], range })
 
-panzoom('canvas', e => {
+let destroy = panzoom('canvas', e => {
   console.log(e)
 
   let w = canvas.offsetWidth
@@ -37,4 +37,24 @@ panzoom('canvas', e => {
   range[3] += yrange * e.dy / h
 
   scatter({ range })
+})
+
+
+// test double init
+
+// dest disabling interactions
+
+let off = document.body.appendChild(document.createElement('button'))
+Object.assign(off.style, {
+  position: 'absolute',
+  left: '50%',
+  width: '8rem',
+  lineHeight: '1.6rem',
+  marginLeft: '-4rem',
+  bottom: '2rem'
+})
+off.innerHTML = 'remove panzoom'
+off.addEventListener('click', () => {
+  document.body.removeChild(off)
+  destroy()
 })
