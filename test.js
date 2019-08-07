@@ -8,9 +8,13 @@ const scatter = require('regl-scatter2d')(regl)
 let range = [-10, -10, 10, 10]
 let canvas = scatter.canvas
 
+let inner = document.createElement('div')
+document.body.appendChild(inner)
+inner.setAttribute('style', 'background: rgba(200,200,210,.2); width: 20px; height: 20px; top: 30%; left: 40%; position: absolute;')
+
 scatter({ points: [0,0, 1,1, 2,2], colors: ['red', 'green', 'blue'], range })
 
-let destroy = panzoom('canvas', e => {
+let destroy = panzoom(document.body, e => {
   console.log(e)
 
   let w = canvas.offsetWidth

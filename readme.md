@@ -26,8 +26,11 @@ let unpanzoom = panzoom(document.body, e => {
   // type of interaction: mouse, touch, keyboard
   e.type;
 
-  // target event is applied to
+  // target element event is applied to
   e.target;
+
+  // original element event started from
+  e.srcElement;
 
   // initial coordinates of interaction
   e.x0;

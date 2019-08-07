@@ -32,15 +32,15 @@ function panZoom (target, cb) {
 
 	var impetus
 
-	var initX = 0, initY = 0, init = true
-	var initFn = function (e) { init = true }
+	var initX = 0, initY = 0, init = true, srcElement
+	var initFn = function (e) { init = true, srcElement = e.srcElement }
 	target.addEventListener('mousedown', initFn)
 	target.addEventListener('touchstart', initFn, hasPassive ? { passive: true } : false)
 
 	var lastY = 0, lastX = 0
 	impetus = new Impetus({
 		source: target,
-		update: function (x, y) {
+		update: function (x, y, ...args) {
 			if (init) {
 				init = false
 				initX = touch.position[0]
@@ -48,6 +48,7 @@ function panZoom (target, cb) {
 			}
 
 			var e = {
+				srcElement,
 				target: target,
 				type: 'mouse',
 				dx: x - lastX, dy: y - lastY, dz: 0,
@@ -64,11 +65,13 @@ function panZoom (target, cb) {
 		friction: .75
 	})
 
+	var isPassive = [window, document, document.documentElement, document.body].indexOf(target) >= 0
 
 	//enable zooming
 	var wheelListener = wheel(target, function (dx, dy, dz, e) {
-		e.preventDefault()
+		if (!isPassive) e.preventDefault()
 		schedule({
+			srcElement: e.srcElement,
 			target: target,
 			type: 'mouse',
 			dx: 0, dy: 0, dz: dy,
@@ -104,6 +107,7 @@ function panZoom (target, cb) {
 		if (!pinch.pinching || !initialCoords) return
 
 		schedule({
+			srcElement: target,
 			target: target,
 			type: 'touch',
 			dx: 0, dy: 0, dz: - (curr - prev) * mult,
