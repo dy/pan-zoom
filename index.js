@@ -32,8 +32,8 @@ function panZoom (target, cb) {
 
 	var impetus
 
-	var initX = 0, initY = 0, init = true, srcElement
-	var initFn = function (e) { init = true, srcElement = e.srcElement }
+	var initX = 0, initY = 0, init = true, srcElement, event
+	var initFn = function (e) { init = true, srcElement = e.srcElement, event = e }
 	target.addEventListener('mousedown', initFn)
 	target.addEventListener('touchstart', initFn, hasPassive ? { passive: true } : false)
 
@@ -49,6 +49,7 @@ function panZoom (target, cb) {
 
 			var e = {
 				srcElement,
+				event,
 				target: target,
 				type: 'mouse',
 				dx: x - lastX, dy: y - lastY, dz: 0,
@@ -72,6 +73,7 @@ function panZoom (target, cb) {
 		if (!isPassive) e.preventDefault()
 		schedule({
 			srcElement: e.srcElement,
+			event: e,
 			target: target,
 			type: 'mouse',
 			dx: 0, dy: 0, dz: dy,
