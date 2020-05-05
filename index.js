@@ -76,7 +76,8 @@ function panZoom (target, cb) {
 			type: 'mouse',
 			dx: 0, dy: 0, dz: dy,
 			x: touch.position[0], y: touch.position[1],
-			x0: touch.position[0], y0: touch.position[1]
+			x0: touch.position[0], y0: touch.position[1],
+			event: e
 		})
 	})
 
