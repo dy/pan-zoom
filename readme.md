@@ -37,7 +37,13 @@ let unpanzoom = panzoom(document.body, e => {
   e.y0;
 });
 
-// call to remove panzoom handler from the target
+// you can pause/resume pan or zoom functionality at runtime if you ever need.
+unpanzoom.disablePan()
+unpanzoom.disableZoom()
+unpanzoom.enablePan()
+unpanzoom.enableZoom()
+
+// call to completely remove panzoom handler from the target
 unpanzoom()
 ```
 
