@@ -165,7 +165,7 @@ function panZoom (target, cb) {
 		})
 	}
 
-	let unpanzoom = function () {
+	var unpanzoom = function () {
 		touch.dispose();
 
 		target.removeEventListener('mousedown', initFn);
