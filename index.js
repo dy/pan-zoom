@@ -26,9 +26,18 @@ function panZoom (target, cb) {
 	if (typeof target === 'string') target = document.querySelector(target)
 
 	//enable panning
-	var touch = position.emitter({
-		element: target
-	})
+  var touch = position.emitter();
+  // Get the current touch position relative to the target.
+  // By using the window for tracking position, we ensure that
+  // the relative touch position is correct even if the target
+  // dimensions have changed since the last touch event.
+  function touchPosition(rect) {
+    if (!rect) rect = target.getBoundingClientRect();
+    return {
+      x: touch.position[0] - rect.x,
+      y: touch.position[1] - rect.y
+    };
+  }
 
 	var impetus
 
@@ -41,10 +50,11 @@ function panZoom (target, cb) {
 	impetus = new Impetus({
 		source: target,
 		update: function (x, y, ...args) {
+      var pos = touchPosition()
 			if (init) {
 				init = false
-				initX = touch.position[0]
-				initY = touch.position[1]
+				initX = pos.x
+				initY = pos.y
 			}
 
 			var e = {
@@ -52,7 +62,7 @@ function panZoom (target, cb) {
 				target: target,
 				type: 'mouse',
 				dx: x - lastX, dy: y - lastY, dz: 0,
-				x: touch.position[0], y: touch.position[1],
+				x: pos.x, y: pos.y,
 				x0: initX, y0: initY
 			}
 
@@ -70,13 +80,14 @@ function panZoom (target, cb) {
 	//enable zooming
 	var wheelListener = wheel(target, function (dx, dy, dz, e) {
 		if (!isPassive) e.preventDefault()
+    var pos = touchPosition()
 		schedule({
 			srcElement: e.srcElement,
 			target: target,
 			type: 'mouse',
 			dx: 0, dy: 0, dz: dy,
-			x: touch.position[0], y: touch.position[1],
-			x0: touch.position[0], y0: touch.position[1]
+			x: pos.x, y: pos.y,
+			x0: pos.x, y0: pos.y
 		})
 	})
 
