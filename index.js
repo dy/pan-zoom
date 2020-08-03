@@ -1,5 +1,5 @@
 /**
- * @module  pan-zoom
+ * @module	pan-zoom
  *
  * Events for pan and zoom
  */
@@ -68,33 +68,33 @@ function panZoom (target, cb) {
 	var isPassive = [window, document, document.documentElement, document.body].indexOf(target) >= 0
 
 	//enable zooming
-  var wheelListener = null;
-  function enableMouseWheel() {
-    if (!wheelListener) {
-      return wheel(target, function (dx, dy, dz, e) {
-        if (!isPassive) e.preventDefault();
-        schedule({
-          srcElement: e.srcElement,
-          target: target,
-          type: 'mouse',
-          dx: 0, dy: 0, dz: dy,
-          x: touch.position[0], y: touch.position[1],
-          x0: touch.position[0], y0: touch.position[1]
-        })
-      });
-    } else {
-      return wheelListener;
-    }
-  }
+	var wheelListener = null;
+	function enableMouseWheel() {
+		if (!wheelListener) {
+			return wheel(target, function (dx, dy, dz, e) {
+				if (!isPassive) e.preventDefault();
+				schedule({
+					srcElement: e.srcElement,
+					target: target,
+					type: 'mouse',
+					dx: 0, dy: 0, dz: dy,
+					x: touch.position[0], y: touch.position[1],
+					x0: touch.position[0], y0: touch.position[1]
+				})
+			});
+		} else {
+			return wheelListener;
+		}
+	}
 
-  function disableMouseWheel() {
-    if (wheelListener) {
-      target.removeEventListener('wheel', wheelListener);
-      wheelListener = null;
-    }
-  }
+	function disableMouseWheel() {
+		if (wheelListener) {
+			target.removeEventListener('wheel', wheelListener);
+			wheelListener = null;
+		}
+	}
 
-  wheelListener = enableMouseWheel();
+	wheelListener = enableMouseWheel();
 
 	//mobile pinch zoom
 	var pinch = touchPinch(target)
@@ -165,38 +165,38 @@ function panZoom (target, cb) {
 		})
 	}
 
-  let unpanzoom = function () {
-    touch.dispose();
+	let unpanzoom = function () {
+		touch.dispose();
 
-    target.removeEventListener('mousedown', initFn);
-    target.removeEventListener('touchstart', initFn);
+		target.removeEventListener('mousedown', initFn);
+		target.removeEventListener('touchstart', initFn);
 
-    impetus.destroy();
+		impetus.destroy();
 
-    disableMouseWheel();
+		disableMouseWheel();
 
-    pinch.disable();
+		pinch.disable();
 
-    raf.cancel(frameId);
-  };
+		raf.cancel(frameId);
+	};
 
-  unpanzoom.disablePan = function() {
-    impetus && impetus.pause();
-  };
+	unpanzoom.disablePan = function() {
+		impetus && impetus.pause();
+	};
 
-  unpanzoom.enablePan = function() {
-    impetus && impetus.resume();
-  };
+	unpanzoom.enablePan = function() {
+		impetus && impetus.resume();
+	};
 
-  unpanzoom.disableZoom = function() {
-    pinch && pinch.disable();
-    disableMouseWheel();
-  };
+	unpanzoom.disableZoom = function() {
+		pinch && pinch.disable();
+		disableMouseWheel();
+	};
 
-  unpanzoom.enableZoom = function() {
-    pinch && pinch.enable();
-    wheelListener = enableMouseWheel();
-  };
+	unpanzoom.enableZoom = function() {
+		pinch && pinch.enable();
+		wheelListener = enableMouseWheel();
+	};
 
-  return unpanzoom;
+	return unpanzoom;
 }
