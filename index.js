@@ -1,5 +1,5 @@
 /**
- * @module	pan-zoom
+ * @module  pan-zoom
  *
  * Events for pan and zoom
  */
