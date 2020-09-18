@@ -112,7 +112,7 @@ function panZoom (target, cb) {
 			type: 'touch',
 			dx: 0, dy: 0, dz: - (curr - prev) * mult,
 			x: initialCoords[0], y: initialCoords[1],
-			x0: initialCoords[0], y0: initialCoords[0]
+			x0: initialCoords[0], y0: initialCoords[1]
 		})
 	})
 
