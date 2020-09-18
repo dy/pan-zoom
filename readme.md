@@ -43,6 +43,9 @@ unpanzoom()
 
 See [`test.js`](https://github.com/dy/pan-zoom/blob/master/test.js) for basic use-case.
 
+## Alternatives
+
+* [@soulfresh/pan-zoom](https://github.com/soulfresh/pan-zoom#readme) − API-compatible fork with fixes.
 
 ## Credits
 
