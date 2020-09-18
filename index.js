@@ -10,7 +10,6 @@ var Impetus = require('impetus')
 var wheel = require('mouse-wheel')
 var touchPinch = require('touch-pinch')
 var position = require('touch-position')
-var raf = require('raf')
 var hasPassive = require('has-passive-events')
 
 
@@ -138,7 +137,7 @@ function panZoom (target, cb) {
 		// so we have to schedule callback to the next frame, not the current
 		// cb(ev)
 
-		frameId = raf(function () {
+		frameId = window.requestAnimationFrame(function () {
 			cb(ev)
 			frameId = null
 			if (planned) {

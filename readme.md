@@ -45,7 +45,7 @@ See [`test.js`](https://github.com/dy/pan-zoom/blob/master/test.js) for basic us
 
 ## Alternatives
 
-* [@soulfresh/pan-zoom](https://github.com/soulfresh/pan-zoom#readme) − API-compatible fork with fixes.
+* [@soulfresh/pan-zoom](https://github.com/soulfresh/pan-zoom#readme) − compatible fork with elaborate API and fixes.
 
 ## Credits
 
