@@ -160,6 +160,6 @@ function panZoom (target, cb) {
 
 		pinch.disable()
 
-		raf.cancel(frameId)
+		window.cancelAnimationFrame(frameId)
 	}
 }
